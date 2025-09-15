@@ -189,10 +189,10 @@ create_gvm_user() {
 		log WARN "GVM user already exists, skipping creation. Verify user settings."
 	else
 		run_command useradd -r -M -U -G sudo -s /usr/sbin/nologin gvm
-		if ! run_command usermod -aG gvm "$USER"; then
-			log WARN "Failed to add $USER to gvm group. Manual addition may be required."
+		if ! run_command usermod -aG gvm "root"; then
+			log WARN "Failed to add root to gvm group. Manual addition may be required."
 		else
-			log INFO "Created GVM user and group, added $USER to gvm group."
+			log INFO "Created GVM user and group, added root to gvm group."
 		fi
 	fi
 }
