@@ -29,7 +29,7 @@
 
 export DEBIAN_FRONTEND=noninteractive
 echo -e 'Dpkg::Options {\n   "--force-confdef";\n   "--force-confold";\n}' > /etc/apt/apt.conf.d/99nowrite
-apt -y install sudo
+apt -y update ; apt -y install sudo
 
 # Sets up environment variables for the installation process.
 # Creates consistent paths for source, build, and install directories.
