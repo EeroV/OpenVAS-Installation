@@ -27,6 +27,9 @@
 # Section: Environment Setup
 # -----------------------------------
 
+export DEBIAN_FRONTEND=noninteractive
+echo -e 'Dpkg::Options {\n   "--force-confdef";\n   "--force-confold";\n}' > /etc/apt/apt.conf.d/99nowrite
+
 # Sets up environment variables for the installation process.
 # Creates consistent paths for source, build, and install directories.
 set_environment() {
@@ -346,15 +349,18 @@ install_openvasd_dep() {
 		rm -f /tmp/rustup-init.sh
 		log INFO "Rust and Cargo installed successfully."
 	fi
+    # add to path
+    export PATH="$HOME/.cargo/bin:$PATH:/root/.cargo/bin"
+
 
 	# Source Cargo environment
-	if [ -f "$HOME/.cargo/env" ]; then
+	#if [ -f "$HOME/.cargo/env" ]; then
 		# shellcheck disable=SC1091
-		. "$HOME/.cargo/env"
-	else
-		log ERROR "Cargo environment file not found at $HOME/.cargo/env."
-		exit 1
-	fi
+#		. "$HOME/.cargo/env"#
+	#else
+#		log ERROR "Cargo environment file not found at $HOME/.cargo/env."
+#		exit 1
+#	fi
 
 	# Verify Rust and Cargo installation
 	if ! command -v rustc >/dev/null 2>&1 || ! command -v cargo >/dev/null 2>&1; then
